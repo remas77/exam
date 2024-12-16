@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games List</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+{% block content %}
+<h1>Edit Game</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" value="{{ game.title }}" required><br><br>
+
+    <label for="developer">Developer:</label>
+    <select id="developer" name="developer" required>
+        {% for dev in developers %}
+            <option value="{{ dev.id }}" {% if game.developer.id == dev.id %}selected{% endif %}>
+                {{ dev.name }}
+            </option>
+        {% endfor %}
+    </select><br><br>
+
+    <button type="submit">Save Changes</button>
+</form>
+<a href="{% url 'list_games' %}">Back to list</a>
+{% endblock %}

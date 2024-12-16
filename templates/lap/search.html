@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Members{% endblock %}
+
+{% block content %}
+<h1>Search Members</h1>
+<form method="get" action="">
+    <input type="text" name="q" placeholder="Search by firstname" value="{{ query|default:'' }}">
+    <button type="submit">Search</button>
+</form>
+
+<h2>Results</h2>
+<ul>
+    {% for member in results %}
+        <li>{{ member.firstname }} {{ member.lastname }}</li>
+    {% empty %}
+        <li>No results found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Games</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Search Games</h1>
+
+    <!-- نموذج البحث -->
+    <form method="get" action="{% url 'search_games' %}">
+        <input type="text" name="q" placeholder="Search games" value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- النتائج -->
+    {% if query %}
+        <h2>Results for "{{ query }}"</h2>
+        <ul>
+            {% for game in results %}
+                <li>{{ game.title }} by {{ game.developer.name }}</li>
+            {% empty %}
+                <p>No games found.</p>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Enter a search term to find games.</p>
+    {% endif %}
+</body>
+</html>

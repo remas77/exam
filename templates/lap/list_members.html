@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Members List{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 20px;">
+    <h1 style="color: #007bff;">Members List</h1>
+    
+    <h2 style="color: #28a745;">All Members</h2>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label for="member_select" style="font-size: 16px;">Select Member to Delete:</label>
+        <select name="member" id="member_select" style="padding: 10px; font-size: 16px;">
+            <option value="">Select a member</option>
+            {% for member in members %}
+                <option value="{{ member.id }}">{{ member.firstname }} {{ member.lastname }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" style="padding: 10px 20px; background-color: #dc3545; color: white; border: none; cursor: pointer;">Delete</button>
+    </form>
+
+    {% if deleted %}
+        <p style="color: #28a745;">Member deleted successfully!</p>
+    {% elif not members %}
+        <p style="color: #dc3545;">No members found.</p>
+    {% endif %}
+</div>
+{% endblock %}
